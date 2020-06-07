@@ -1,0 +1,43 @@
+@model ShoppingCartViewModel
+@using System.Globalization;
+
+<h4>Your Shopping Cart</h4>
+
+<table class="table table-bordered table-striped table-hover table-sm">
+    <thead class="thead-dark">
+    <tr>
+        <th>Amount</th>
+        <th>Pie</th>
+        <th class="text-right">Price</th>
+        <th class="text-right">Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var shoppingCartItem in Model.ShoppingCart.ShoppingCartItems)
+    {
+        <tr>
+            <td class="text-center">@shoppingCartItem.Amount</td>
+            <td class="text-left">@shoppingCartItem.Product.Name</td>
+            <td class="text-right">@shoppingCartItem.Product.Price.ToString("c")</td>
+            <td class="text-right">
+                @((shoppingCartItem.Amount * shoppingCartItem.Product.Price).ToString("c"))
+            </td>
+        </tr>
+    }
+    </tbody>
+    <tfoot>
+    <tr class="table-danger">
+        <td colspan="3" class="text-right">Total:</td>
+        <td class="text-right table-danger">
+            @Model.ShoppingCartTotal.ToString("c",CultureInfo.CreateSpecificCulture("en-IN"))
+        </td>
+    </tr>
+    </tfoot>
+</table>
+
+
+
+<div class="text-center">
+    <a class="btn btn-primary" asp-controller="Order" asp-action="Checkout">Check out now!</a>
+</div>
+

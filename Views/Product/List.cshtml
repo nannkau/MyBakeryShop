@@ -1,0 +1,8 @@
+@model ProductListViewModel
+
+
+@foreach (var product in Model.Products)
+{
+    <partial name="_Product" model="product"></partial>
+
+}

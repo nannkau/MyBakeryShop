@@ -1,0 +1,28 @@
+﻿@model ProductListViewModel
+
+<div class="col-lg-6 order-2 order-lg-1">
+    <h1 class="display-4">Welcome My Baker's Shop</h1>
+            
+            <p class="lead">Proident eu nisi commodo enim deserunt enim duis sunt nostrud anim. Sunt do sit enim veniam nostrud culpa adipisicing do ullamco occaecat et. </p>
+            
+            <p><a class="btn btn-primary shadow mr-2" asp-controller="Product" asp-action="List">Products</a>
+            
+            <a href="#" class="btn btn-outline-primary">
+                Custom Order
+             </a>
+            </p>
+          </div>
+          <div class="col-lg-6 order-1 order-lg-2">
+              <img src="~/Images/carousel4.jpg" alt="..." class="img-fluid" style="height: 300px;"></div>
+</div>
+
+<br/>
+<br/>
+
+<div class="row">
+    @foreach (var product in Model.Products)
+    {
+        <partial name="_Product" model="product"></partial>
+
+    }
+</div>
