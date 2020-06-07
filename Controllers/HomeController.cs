@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyBakeryShop.Models;
 using MyBakeryShop.ViewModels;
-
+//ok
 namespace MyBakeryShop.Controllers
 {
     public class HomeController : Controller
