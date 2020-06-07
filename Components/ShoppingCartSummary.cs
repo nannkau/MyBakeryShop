@@ -7,6 +7,7 @@ namespace MyBakeryShop.Components
     public class ShoppingCartSummary : ViewComponent
     {
         private readonly ShoppingCartService _shoppingCartService;
+        //ok
 
         public ShoppingCartSummary(ShoppingCartService shoppingCartService)
         {
