@@ -1,6 +1,20 @@
-@model ProductListViewModel
+@model MyBakeryShop.ViewModels.ProductListViewModel
 
+@{
+    ViewData["Title"] = "List";
+}
 
+<form asp-controller="Product" asp-action="List" method="get">
+    <p>
+
+        <select asp-for="StyleString" asp-items="Model.Style">
+            <option value="">All</option>
+        </select>
+
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 @foreach (var product in Model.Products)
 {
     <partial name="_Product" model="product"></partial>

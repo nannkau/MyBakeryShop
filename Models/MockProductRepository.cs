@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace MyBakeryShop.Models
 {
-    public class MockProductRepository : IProductRepository
+    public class MockProductRepository 
     {
 
         private readonly ICategoryRepository _categoryRepository = new MockCategoryRepository();

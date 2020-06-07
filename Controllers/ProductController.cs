@@ -1,6 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MyBakeryShop.Models;
+using MyBakeryShop.Models.Data;
 using MyBakeryShop.ViewModels;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyBakeryShop.Controllers
 {
@@ -9,6 +13,8 @@ namespace MyBakeryShop.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly BakeryDbContext _bakeryDbContext;
+
 
         public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository)
         {
@@ -17,16 +23,19 @@ namespace MyBakeryShop.Controllers
         }
 
         // GET: /<controller>/
-        public IActionResult List()
+        
+        public  IActionResult List(string styleString , string searchString)
         {
+            // Use LINQ to get list of genres.
+
 
             ProductListViewModel piesListViewModel = new ProductListViewModel();
+            piesListViewModel.Style = new SelectList(_productRepository.StyleList().ToList());
+            piesListViewModel.Products =  _productRepository.SearchList(searchString, styleString);
 
-            piesListViewModel.Products = _productRepository.GetAllProducts();
 
             return View(piesListViewModel);
         }
-
         public IActionResult Details(int id)
         {
             Product product = _productRepository.GetProductById(id);

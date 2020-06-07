@@ -7,5 +7,7 @@ namespace MyBakeryShop.Models
         IEnumerable<Product> GetAllProducts();
         IEnumerable<Product> GetProductsOfTheWeek();
         Product GetProductById(int pieId);
+        IEnumerable<Product> SearchList(string searchString,string style);
+        IEnumerable<string> StyleList ();
     }
 }
