@@ -28,7 +28,7 @@ namespace MyBakeryShop.Models.Data
 
             //seed pies
 
-            modelBuilder.Entity<Product>().HasData(new Product
+            _ = modelBuilder.Entity<Product>().HasData(new Product
             {
                 ProductId = 1,
                 Name = "Apple Pie",
