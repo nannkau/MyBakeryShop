@@ -39,7 +39,7 @@ namespace MyBakeryShop.Controllers
                 }  
             } 
             
-            return "~/images/"+ uniqueFileName;  
+            return uniqueFileName;  
         }  
         // GET: AdminProducts
         public async Task<IActionResult> Index()
