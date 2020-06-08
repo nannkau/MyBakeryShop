@@ -17,28 +17,29 @@ namespace MyBakeryShop.Controllers
     public class AdminProductsController : Controller
     {
         private readonly BakeryDbContext _context;
-        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AdminProductsController(BakeryDbContext context, IWebHostEnvironment _webHostEnvironment)
+        public AdminProductsController(BakeryDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
         }
-        private string UploadedFile(CreateProductVm model)  
+        private string UploadedFile( CreateProductVm model)  
         {  
             string uniqueFileName = null;  
   
             if (model.ProfileImage != null)  
             {  
-                string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");  
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");  
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;  
                 string filePath = Path.Combine(uploadsFolder, uniqueFileName);  
                 using (var fileStream = new FileStream(filePath, FileMode.Create))  
                 {  
                     model.ProfileImage.CopyTo(fileStream);  
                 }  
-            }  
-            return uniqueFileName;  
+            } 
+            
+            return "~/images/"+ uniqueFileName;  
         }  
         // GET: AdminProducts
         public async Task<IActionResult> Index()
@@ -78,7 +79,7 @@ namespace MyBakeryShop.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( CreateProductVm product)
+        public async Task<IActionResult> Create([Bind("ProductId,Name,ShortDescription,LongDescription,AllergyInformation,Price,IsProductOfTheWeek,InStock,CategoryId,ProfileImage")] CreateProductVm product)
         {
             string ulr = UploadedFile(product);
             if (ModelState.IsValid)
@@ -98,7 +99,7 @@ namespace MyBakeryShop.Controllers
                     ImageUrl = ulr,
 
                 };
-                _context.Add(product);
+                _context.Add(p);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
