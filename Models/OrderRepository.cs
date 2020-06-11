@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MyBakeryShop.Models.Data;
 using MyBakeryShop.Services;
 
@@ -41,6 +42,13 @@ namespace MyBakeryShop.Models
             _bakeryDbContext.Orders.Add(order);
 
             _bakeryDbContext.SaveChanges();
+        }
+
+        public IEnumerable<OrderDetail> ListProduct(int? id)
+        {
+            IEnumerable<OrderDetail> od = _bakeryDbContext.OrderDetails
+                               .Where(t => t.OrderId==id);
+            return od;
         }
     }
 }

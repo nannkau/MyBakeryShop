@@ -1,0 +1,35 @@
+﻿
+@model OderDtViewModel
+@{
+    ViewData["Title"] = "LProduct";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ProductID
+                </th>
+                <th>
+                    Amout
+                </th>
+                
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.OderDt)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
