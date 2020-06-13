@@ -4,6 +4,7 @@ namespace MyBakeryShop.Models
 {
     public class Category
     {
+        //123
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Description { get; set; }
