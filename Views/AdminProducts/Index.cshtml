@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MyBakeryShop.Models.Product>
+﻿@model MyBakeryShop.ViewModels.ProductListViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -10,57 +10,71 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form
+    asp-controller="AdminProducts" asp-action="Index" method="get">
+
+    <div class="form-group">
+        <select asp-for="StyleString" asp-items="Model.Style">
+            <option value="">All</option>
+        </select>
+
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </div>
+
+</form>
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th >
-                @Html.DisplayNameFor(model => model.Name)
+            <th>
+                ProductName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AllergyInformation)
+                AllergyInformation
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th >
-                @Html.DisplayNameFor(model => model.ImageUrl)
+                Price
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.InStock)
+                IsProductOfTheWeek
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                InStock
             </th>
-            <th></th>
+            <th>
+                Category
+            </th>
+            <th>Option</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AllergyInformation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsProductOfTheWeek)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.InStock)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category.CategoryId)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AllergyInformation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsProductOfTheWeek)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InStock)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.CategoryId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

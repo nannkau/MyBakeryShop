@@ -5,18 +5,20 @@
 }
 
 <form asp-controller="Product" asp-action="List" method="get">
-    <p>
+    
+        <div class="form-group">
+            <select asp-for="StyleString" asp-items="Model.Style">
+                <option value="">All</option>
+            </select>
 
-        <select asp-for="StyleString" asp-items="Model.Style">
-            <option value="">All</option>
-        </select>
-
-        Title: <input type="text" asp-for="SearchString" />
-        <input type="submit" value="Filter" />
-    </p>
+            Title: <input type="text" asp-for="SearchString" />
+            <input type="submit" value="Filter" />
+        </div>
+   
 </form>
-@foreach (var product in Model.Products)
-{
-    <partial name="_Product" model="product"></partial>
 
-}
+    @foreach (var product in Model.Products)
+    {
+        <partial name="_Product" model="product"></partial>
+
+    }

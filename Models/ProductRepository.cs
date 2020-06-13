@@ -43,7 +43,7 @@ namespace MyBakeryShop.Models
             //4. Tìm kiếm theo CategoryID
             if (!string.IsNullOrEmpty(style))
             {
-                list = list.Where(x => x.Name.Contains(style));
+                list = list.Where(x => x.CategoryName==style);
             }
 
             //5. Chuyển đổi kết quả từ var sang danh sách List<Link>

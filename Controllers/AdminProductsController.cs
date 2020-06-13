@@ -17,12 +17,14 @@ namespace MyBakeryShop.Controllers
     public class AdminProductsController : Controller
     {
         private readonly BakeryDbContext _context;
+        private readonly IProductRepository _productRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AdminProductsController(BakeryDbContext context, IWebHostEnvironment webHostEnvironment)
+        public AdminProductsController(BakeryDbContext context, IWebHostEnvironment webHostEnvironment, IProductRepository productRepository)
         {
             _context = context;
             _webHostEnvironment = webHostEnvironment;
+            _productRepository = productRepository;
         }
         private string UploadedFile( CreateProductVm model)  
         {  
@@ -42,10 +44,14 @@ namespace MyBakeryShop.Controllers
             return uniqueFileName;  
         }  
         // GET: AdminProducts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString,string styleString)
         {
-            var bakeryDbContext = _context.Products.Include(p => p.Category);
-            return View(await bakeryDbContext.ToListAsync());
+            ProductListViewModel piesListViewModel = new ProductListViewModel();
+            piesListViewModel.Style = new SelectList(_productRepository.StyleList().ToList());
+            piesListViewModel.Products = _productRepository.SearchList(searchString, styleString);
+
+
+            return View(piesListViewModel);
         }
 
         // GET: AdminProducts/Details/5
