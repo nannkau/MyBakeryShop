@@ -12,23 +12,35 @@
                     ProductID
                 </th>
                 <th>
+                    ProductName
+                </th>
+                <th>
                     Amout
                 </th>
-                
+                <th>
+                    Price
+                </th>
+
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.OderDt)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Product)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Productname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+            </tr>
             }
         </tbody>
     </table>

@@ -44,11 +44,25 @@ namespace MyBakeryShop.Models
             _bakeryDbContext.SaveChanges();
         }
 
-        public IEnumerable<OrderDetail> ListProduct(int? id)
+        public List<OderItem> ListProduct(int? id)
+
         {
-            IEnumerable<OrderDetail> od = _bakeryDbContext.OrderDetails
-                               .Where(t => t.OrderId==id);
-            return od;
+            var product = from o in _bakeryDbContext.OrderDetails
+                        join p in _bakeryDbContext.Products on o.ProductId equals p.ProductId
+                        select new { p.ProductId, p.Name, o.Amount, o.Price};
+            List < OderItem > oderItems= new List<OderItem>();
+            foreach(var item in product)
+            {
+                OderItem od = new OderItem();
+                od.ProductId = item.ProductId;
+                od.Productname = item.Name;
+                od.Amount = item.Amount;
+                od.Price = item.Price;
+                oderItems.Add(od);
+            }
+           // IEnumerable<OrderDetail> od = _bakeryDbContext.OrderDetails
+             //                  .Where(t => t.OrderId==id);
+            return oderItems;
         }
     }
 }

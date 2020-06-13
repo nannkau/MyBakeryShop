@@ -8,6 +8,6 @@ namespace MyBakeryShop.ViewModels
 {
     public class OderDtViewModel
     {
-        public IEnumerable<OrderDetail> OderDt { get; internal set; }
+        public List<OderItem> OderDt { get; internal set; }
     }
 }
