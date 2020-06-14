@@ -34,6 +34,7 @@ namespace MyBakeryShop.Models
         {
             var list = from p in _bakeryDbContext.Products
                        join c in _bakeryDbContext.Categories on p.CategoryId equals c.CategoryId
+                       orderby p.ProductId
                        select new { p.ProductId, p.Name, p.LongDescription, p.ShortDescription, p.Price, p.AllergyInformation, p.ImageUrl, p.ImageThumbnailUrl, p.IsProductOfTheWeek, p.InStock, c.CategoryId, c.CategoryName, c.Description };
             if (!string.IsNullOrEmpty(searchString))
             {

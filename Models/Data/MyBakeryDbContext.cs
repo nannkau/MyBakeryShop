@@ -10,7 +10,7 @@ namespace MyBakeryShop.Models.Data
         public BakeryDbContext(DbContextOptions<BakeryDbContext> options) : base(options)
         {
         }
-
+        public DbSet<Banner> Banners { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }

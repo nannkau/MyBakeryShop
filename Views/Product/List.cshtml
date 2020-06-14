@@ -6,7 +6,7 @@
 
 <form asp-controller="Product" asp-action="List" method="get">
     
-        <div class="form-group">
+        <div class="md-form mt-0">
             <select asp-for="StyleString" asp-items="Model.Style">
                 <option value="">All</option>
             </select>
@@ -16,9 +16,12 @@
         </div>
    
 </form>
+<div>
+
+</div>
 
     @foreach (var product in Model.Products)
-    {
+    { 
         <partial name="_Product" model="product"></partial>
 
     }
