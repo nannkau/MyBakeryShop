@@ -15,6 +15,12 @@ namespace MyBakeryShop.Models
             _bakeryDbContext = bakeryDbContext;
         }
 
+        public IEnumerable<Banner> Banners()
+        {
+
+            return _bakeryDbContext.Banners;
+        }
+
         public IEnumerable<Product> GetAllProducts()
         {
             return _bakeryDbContext.Products.Include(c => c.Category);

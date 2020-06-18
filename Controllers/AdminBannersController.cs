@@ -1,24 +1,45 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MyBakeryShop.Models;
 using MyBakeryShop.Models.Data;
+using MyBakeryShop.ViewModels;
 
 namespace MyBakeryShop.Controllers
 {
     public class AdminBannersController : Controller
     {
         private readonly BakeryDbContext _context;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public AdminBannersController(BakeryDbContext context)
+        public AdminBannersController(BakeryDbContext context,IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
+        private string UploadedFile(CreateBannerVM model)
+        {
+            string uniqueFileName = null;
 
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImage.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
+        }
         // GET: AdminBanners
         public async Task<IActionResult> Index()
         {
@@ -54,10 +75,17 @@ namespace MyBakeryShop.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("BannerId,Link")] Banner banner)
+        public async Task<IActionResult> Create([Bind("BannerId,ProfileImage,Active")] CreateBannerVM banner)
         {
+            string ulr = UploadedFile(banner);
             if (ModelState.IsValid)
             {
+                Banner banner1 = new Banner {
+                    BannerId = banner.BannerId,
+                    Link = ulr,
+                    Active = banner.Active
+                };
+
                 _context.Add(banner);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -86,7 +114,7 @@ namespace MyBakeryShop.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BannerId,Link")] Banner banner)
+        public async Task<IActionResult> Edit(int id, [Bind("BannerId,Link,Active")] Banner banner)
         {
             if (id != banner.BannerId)
             {

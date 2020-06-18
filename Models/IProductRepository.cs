@@ -9,5 +9,6 @@ namespace MyBakeryShop.Models
         Product GetProductById(int pieId);
         IEnumerable<Product> SearchList(string searchString,string style);
         IEnumerable<string> StyleList ();
+        IEnumerable<Banner> Banners();
     }
 }

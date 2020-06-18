@@ -9,7 +9,7 @@ namespace MyBakeryShop.ViewModels
         public ProductListViewModel()
         {
         }
-
+        public IEnumerable<Banner> Banners { get; internal set; }
         public IEnumerable<Product> Products { get; internal set; }
         //public string CurrentCategory { get; internal set; }
         public SelectList Style { get; set; }
