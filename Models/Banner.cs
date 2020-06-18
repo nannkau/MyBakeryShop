@@ -9,5 +9,7 @@ namespace MyBakeryShop.Models
     {
         public int BannerId { get; set; }
         public string Link { get; set; }
+        public bool Active { get; set; }
+
     }
 }
