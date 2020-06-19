@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Combo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@model MyBakeryShop.ViewModels.ProductListViewModel
+
+
+<form asp-controller="Product" asp-action="List" method="get">
+
+    <div class="md-form mt-0">
+      
+
+        Title: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </div>
+
+</form>
+<div>
+
+</div>
+<div class="row" style="padding-top:100px">
+    @foreach (var product in Model.Products)
+    {
+        <partial name="_Product" model="product"></partial>
+
+    }
+</div>

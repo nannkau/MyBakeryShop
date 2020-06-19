@@ -15,8 +15,20 @@ namespace MyBakeryShop.Models
         }
         public IEnumerable<Banner> ListBanner()
         {
-            
-            return _bakeryDbContext.Banners;
+            var bn = from b in _bakeryDbContext.Banners
+                     where b.Active== true
+                     select new { b.BannerId,b.Link,b.Active};
+            List<Banner> banners = new List<Banner>();
+            foreach(var item in bn)
+            {
+                Banner banner = new Banner();
+                banner.BannerId = item.BannerId;
+                banner.Link = item.Link;
+                banner.Active = item.Active;
+                banners.Add(banner);
+            }
+            return banners;
+           
         }
     }
 }

@@ -9,10 +9,12 @@ namespace MyBakeryShop.Controllers
     public class HomeController : Controller
     {
         private readonly IProductRepository _productRepository;
+        private readonly IBannerRepository _bannerRepository;
 
-        public HomeController(IProductRepository productRepository)
+        public HomeController(IProductRepository productRepository, IBannerRepository bannerRepository)
         {
             _productRepository = productRepository;
+            _bannerRepository = bannerRepository;
         }
 
 
@@ -22,6 +24,7 @@ namespace MyBakeryShop.Controllers
             ProductListViewModel productListViewModel = new ProductListViewModel();
 
             productListViewModel.Products = _productRepository.GetProductsOfTheWeek();
+            productListViewModel.Banners = _bannerRepository.ListBanner();
 
             return View(productListViewModel);
 

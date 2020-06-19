@@ -11,17 +11,19 @@ namespace MyBakeryShop.Controllers
 
     public class ProductController : Controller
     {
+        private readonly BakeryDbContext _context;
         private readonly IProductRepository _productRepository;
         private readonly IBannerRepository _bannerRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly BakeryDbContext _bakeryDbContext;
 
 
-        public ProductController(IProductRepository productRepository, ICategoryRepository categoryRepository, IBannerRepository bannerRepository)
+        public ProductController(BakeryDbContext context,IProductRepository productRepository, ICategoryRepository categoryRepository, IBannerRepository bannerRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _bannerRepository = bannerRepository;
+            _context = context;
         }
 
         // GET: /<controller>/
@@ -34,7 +36,17 @@ namespace MyBakeryShop.Controllers
             ProductListViewModel piesListViewModel = new ProductListViewModel();
             piesListViewModel.Style = new SelectList(_productRepository.StyleList().ToList());
             piesListViewModel.Products =  _productRepository.SearchList(searchString, styleString);
-            piesListViewModel.Banners = _bannerRepository.ListBanner();
+           
+            return View(piesListViewModel);
+        }
+        public IActionResult Combo( string searchString)
+        {
+            // Use LINQ to get list of genres.
+
+
+            ProductListViewModel piesListViewModel = new ProductListViewModel();
+            piesListViewModel.Style = new SelectList(_productRepository.StyleList().ToList());
+            piesListViewModel.Products = _productRepository.SearchListCb(searchString);
 
             return View(piesListViewModel);
         }

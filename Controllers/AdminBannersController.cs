@@ -38,7 +38,7 @@ namespace MyBakeryShop.Controllers
                 }
             }
 
-            return uniqueFileName;
+            return "~/images/" + uniqueFileName;
         }
         // GET: AdminBanners
         public async Task<IActionResult> Index()
@@ -83,10 +83,10 @@ namespace MyBakeryShop.Controllers
                 Banner banner1 = new Banner {
                     BannerId = banner.BannerId,
                     Link = ulr,
-                    Active = banner.Active
+                    Active = banner.Active,
                 };
 
-                _context.Add(banner);
+                _context.Add(banner1);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }

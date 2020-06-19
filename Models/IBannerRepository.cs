@@ -8,6 +8,6 @@ namespace MyBakeryShop.Models
     public interface IBannerRepository
 
     {
-        IEnumerable<Banner> ListBanner();
+       IEnumerable<Banner> ListBanner();
     }
 }

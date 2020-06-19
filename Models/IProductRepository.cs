@@ -6,8 +6,11 @@ namespace MyBakeryShop.Models
     {
         IEnumerable<Product> GetAllProducts();
         IEnumerable<Product> GetProductsOfTheWeek();
+        IEnumerable<Banner> ListBanner();
         Product GetProductById(int pieId);
+        IEnumerable<Product> SearchListAd(string searchString, string style);
         IEnumerable<Product> SearchList(string searchString,string style);
+        IEnumerable<Product> SearchListCb(string searchString);
         IEnumerable<string> StyleList ();
         IEnumerable<Banner> Banners();
     }

@@ -32,6 +32,7 @@ namespace MyBakeryShop
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IBannerRepository, BannerRepository>();
 
             services.AddScoped<ShoppingCartService>(sp => ShoppingCartService.GetCart(sp));
 

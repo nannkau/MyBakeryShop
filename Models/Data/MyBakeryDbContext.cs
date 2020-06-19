@@ -207,6 +207,7 @@ namespace MyBakeryShop.Models.Data
                     "https://gillcleerenpluralsight.blob.core.windows.net/files/strawberrycheesecakesmall.jpg",
                 AllergyInformation = ""
             });
+
         }
 
         internal object Where(Func<object, bool> p)

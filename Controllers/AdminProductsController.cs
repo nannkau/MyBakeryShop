@@ -41,14 +41,14 @@ namespace MyBakeryShop.Controllers
                 }  
             } 
             
-            return uniqueFileName;  
+            return "~/images/" +uniqueFileName;  
         }  
         // GET: AdminProducts
         public async Task<IActionResult> Index(string searchString,string styleString)
         {
             ProductListViewModel piesListViewModel = new ProductListViewModel();
             piesListViewModel.Style = new SelectList(_productRepository.StyleList().ToList());
-            piesListViewModel.Products = _productRepository.SearchList(searchString, styleString);
+            piesListViewModel.Products = _productRepository.SearchListAd(searchString, styleString);
 
 
             return View(piesListViewModel);
