@@ -63,6 +63,9 @@ namespace MyBakeryShop
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(name: "admin",
+               pattern: "admin/{*article}",
+               defaults: new { controller = "AdminProducts", action = "index" });
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
