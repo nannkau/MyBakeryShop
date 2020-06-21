@@ -122,12 +122,25 @@ namespace MyBakeryShop.Controllers
             }
 
             var product = await _context.Products.FindAsync(id);
+
+            CreateProductVm p = new CreateProductVm
+            {
+                ProductId = product.ProductId,
+                Name = product.Name,
+                ShortDescription = product.ShortDescription,
+                LongDescription = product.LongDescription,
+                AllergyInformation = product.AllergyInformation,
+                Price = product.Price,
+                IsProductOfTheWeek = product.IsProductOfTheWeek,
+                InStock = product.InStock,
+                CategoryId = product.CategoryId,
+            };
             if (product == null)
             {
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CategoryId);
-            return View(product);
+            return View(p);
         }
 
         // POST: AdminProducts/Edit/5
@@ -135,18 +148,33 @@ namespace MyBakeryShop.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,ShortDescription,LongDescription,AllergyInformation,Price,ImageUrl,ImageThumbnailUrl,IsProductOfTheWeek,InStock,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Name,ShortDescription,LongDescription,AllergyInformation,Price,IsProductOfTheWeek,InStock,CategoryId,ProfileImage")] CreateProductVm product)
         {
             if (id != product.ProductId)
             {
                 return NotFound();
             }
-
+            string ulr = UploadedFile(product);
             if (ModelState.IsValid)
             {
+                Product p = new Product
+                {
+                    ProductId = product.ProductId,
+                    Name = product.Name,
+                    ShortDescription = product.ShortDescription,
+                    LongDescription = product.LongDescription,
+                    AllergyInformation = product.AllergyInformation,
+                    Price = product.Price,
+                    IsProductOfTheWeek = product.IsProductOfTheWeek,
+                    InStock = product.InStock,
+                    CategoryId = product.CategoryId,
+                    ImageThumbnailUrl = ulr,
+                    ImageUrl = ulr,
+
+                };
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(p);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -165,7 +193,6 @@ namespace MyBakeryShop.Controllers
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", product.CategoryId);
             return View();
         }
-
         // GET: AdminProducts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {

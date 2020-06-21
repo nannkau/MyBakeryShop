@@ -34,6 +34,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.OrderTotal)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderPlaced)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -62,10 +65,10 @@
                 @Html.DisplayFor(modelItem => item.OrderTotal)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                @Html.DisplayFor(modelItem => item.OrderPlaced)
+            </td>
+            <td>
                 <a asp-action="LProduct" asp-route-id="@item.OrderId">ListProduct</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
             </td>
         </tr>
 }

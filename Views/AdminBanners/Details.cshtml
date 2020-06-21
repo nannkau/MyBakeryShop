@@ -1,5 +1,4 @@
 ﻿@model MyBakeryShop.Models.Banner
-
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -10,20 +9,15 @@
 <div>
     <h4>Banner</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Link)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Link)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-    </dl>
+    <div class="container">
+        <div class="row">
+                    <img src="@Model.Link" asp-append-version="true" style="width: 800px; height: 300px;">
+         </div>
+       
+        <div class = "row" style="padding-top:30px;">
+           Active : @Html.DisplayFor(model => model.Active)
+        </div>
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.BannerId">Edit</a> |

@@ -102,11 +102,17 @@ namespace MyBakeryShop.Controllers
             }
 
             var banner = await _context.Banners.FindAsync(id);
+            CreateBannerVM banner1 = new CreateBannerVM
+            {
+                BannerId = banner.BannerId,
+                Active = banner.Active,
+            };
+
             if (banner == null)
             {
                 return NotFound();
             }
-            return View(banner);
+            return View(banner1);
         }
 
         // POST: AdminBanners/Edit/5
@@ -114,18 +120,24 @@ namespace MyBakeryShop.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BannerId,Link,Active")] Banner banner)
+        public async Task<IActionResult> Edit(int id, [Bind("BannerId,ProfileImage,Active")] CreateBannerVM banner)
         {
             if (id != banner.BannerId)
             {
                 return NotFound();
             }
-
+            string ulr = UploadedFile(banner);
             if (ModelState.IsValid)
             {
+                Banner banner1 = new Banner
+                {
+                    BannerId = banner.BannerId,
+                    Link = ulr,
+                    Active = banner.Active,
+                };
                 try
                 {
-                    _context.Update(banner);
+                    _context.Update(banner1);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
