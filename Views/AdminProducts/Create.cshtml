@@ -1,11 +1,10 @@
-﻿@model CreateProductVm
-
+﻿
 @{
     ViewData["Title"] = "Create";
-
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-    <h1>Create Product</h1>
+@model CreateProductVm
+<h1>Create Product</h1>
 
 
 <hr />
@@ -19,15 +18,15 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Short Description</label> 
+                <label class="control-label">Short Description</label>
                 <input asp-for="ShortDescription" class="form-control" />
                 <span asp-validation-for="ShortDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class ="control-label">Long Description</label>
-                    <input asp-for="LongDescription" class="form-control" />
-                    <span asp-validation-for="LongDescription" class="text-danger"></span>
-</div>
+                <label class="control-label">Long Description</label>
+                <input asp-for="LongDescription" class="form-control" />
+                <span asp-validation-for="LongDescription" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label class="control-label">Allergy Information</label>
                 <input asp-for="AllergyInformation" class="form-control" />
@@ -76,3 +75,5 @@
         });
     </script>
 }
+
+
